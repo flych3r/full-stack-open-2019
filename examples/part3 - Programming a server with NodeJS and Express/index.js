@@ -27,21 +27,21 @@ app.get('/api/notes', (request, response) => {
 
 app.get('/api/notes/:id', (request, response, next) => {
   Note.findById(request.params.id)
-  .then(note => {
-    if(note) {
-      response.json(note.toJSON())
-    } else {
-      response.status(404).end()
-    }
-  })
-  .catch(error => next(error))
+    .then(note => {
+      if(note) {
+        response.json(note.toJSON())
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
 })
 
 app.delete('/api/notes/:id', (request, response, next) => {
   Note.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(
       response.status(204).end()
-    })
+    )
     .catch(error => next(error))
 })
 

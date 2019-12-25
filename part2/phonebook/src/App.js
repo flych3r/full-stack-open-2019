@@ -83,14 +83,9 @@ const App = () => {
     if (confirm) {
       personServices
       .deleteObject(id)
-      .then(_ => {
+      .then(_ => 
         setPersons(persons.filter(person => person.id !== id))
-        setMessage(`Deleted ${found.name}`)
-          setColorMessage(true)
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
-      })
+      )
       .catch(_ => {
         setMessage(
           `Information of ${found.name} was already removed from server`
@@ -130,4 +125,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
