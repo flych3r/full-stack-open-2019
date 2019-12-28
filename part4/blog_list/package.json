@@ -1,0 +1,33 @@
+{
+  "name": "blog_list",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "jest --verbose",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "deploy": "git push heroku master",
+    "logs:prod": "heroku logs --tail"
+  },
+  "author": "Matheus Xavier",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.3",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.19.1",
+    "jest": "^24.9.0",
+    "lodash": "^4.17.15",
+    "nodemon": "^2.0.2"
+  }
+}
