@@ -1,11 +1,12 @@
-const morgan = require('morgan')
 const logger = require('./logger')
 
-morgan.token('body', (request, response) => {
-  if (request.method === 'POST' || request.method === 'PUT')
-    return JSON.stringify(request.body)
-  return null
-})
+const requestLogger = (request, response, next) => {
+  logger.info('Method:', request.method)
+  logger.info('Path:  ', request.path)
+  logger.info('Body:  ', request.body)
+  logger.info('---')
+  next()
+}
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
@@ -21,22 +22,13 @@ const errorHandler = (error, request, response, next) => {
     return response.status(401).json({ error: 'invalid token' })
   }
 
-  logger.error(error.name)
+  logger.error(error.message)
 
   next(error)
 }
 
-const tokenExtractor = (request, response, next) => {
-  const authorization = request.get('authorization')
-  const valid_authorization = authorization && authorization.toLowerCase().startsWith('bearer ')
-  const token = valid_authorization ? authorization.substring(7) : null
-  request.token = token
-  next()
-}
-
 module.exports = {
-  morgan,
+  requestLogger,
   unknownEndpoint,
-  errorHandler,
-  tokenExtractor
+  errorHandler
 }

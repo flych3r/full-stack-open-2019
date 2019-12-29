@@ -1,15 +1,14 @@
 const config = require('./utils/config')
 const express = require('express')
 const bodyParser = require('body-parser')
+const app = express()
 const cors = require('cors')
-const blogsRouter = require('./controllers/blog')
+const notesRouter = require('./controllers/note')
 const usersRouter = require('./controllers/user')
 const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 const logger = require('./utils/logger')
-
-const app = express()
 
 logger.info('connecting to', config.MONGODB_URI)
 
@@ -26,12 +25,9 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
 app.use(cors())
 app.use(express.static('build'))
 app.use(bodyParser.json())
-if (process.env.NODE_ENV !== 'test') {
-  app.use(middleware.morgan(':method :url :status :res[content-length] - :response-time ms :body'))
-}
+app.use(middleware.requestLogger)
 
-app.use(middleware.tokenExtractor)
-app.use('/api/blogs', blogsRouter)
+app.use('/api/notes', notesRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
