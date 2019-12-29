@@ -1,4 +1,4 @@
-# Deploy to the heroku
+# Deploy to heroku
 
 Initialize git repository: `git init`
 
