@@ -5,6 +5,7 @@ import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import LogoutForm from './components/LogoutForm'
 import BlogForm from './components/BlogForm'
+import Toggagle from './components/Toggable'
 import Notification from './components/Notification'
 
 function App() {
@@ -18,8 +19,11 @@ function App() {
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
-  useEffect(async () => {
-    setBlogs(await blogService.getAll())
+  useEffect(() => {
+    async function fetchData() {
+      setBlogs(await blogService.getAll())
+    }
+    fetchData()
   }, [])
 
   useEffect(() => {
@@ -31,8 +35,6 @@ function App() {
       setUser(usr)
     }
   }, [])
-
-  const showBlogs = () => blogs.map((blog) => <Blog key={blog.id} blog={blog} />)
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -57,6 +59,7 @@ function App() {
   const handleLogout = (event) => {
     event.preventDefault()
     setUser(null)
+    blogService.removeToken()
     window.localStorage.clear()
   }
 
@@ -93,6 +96,51 @@ function App() {
     setUrl('')
   }
 
+  const likeBlog = async (event) => {
+    event.preventDefault()
+
+    const blogObject = JSON.parse(event.target.value)
+    blogObject.likes += 1
+
+    const returnedBlog = await blogService.update(blogObject)
+    setBlogs(blogs.map((blog) => (blog.id === returnedBlog.id ? returnedBlog : blog)))
+    setMessage(`blog ${blogObject.title} by ${blogObject.author} was liked`)
+    setMessageColor('blue')
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+    setTitle('')
+    setAuthor('')
+    setUrl('')
+  }
+
+  const removeBlog = async (event) => {
+    event.preventDefault()
+
+    const blogObject = JSON.parse(event.target.value)
+
+    if (window.confirm(`remove blog ${blogObject.title} by ${blogObject.author}?`)) {
+      await blogService.remove(blogObject)
+      setBlogs(blogs.filter((blog) => blog.id !== blogObject.id))
+      setMessage(`blog ${blogObject.title} by ${blogObject.author} was removed`)
+      setMessageColor('yellow')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    }
+  }
+
+  const blogsToShow = blogs.sort((a, b) => b.likes - a.likes)
+  const showBlogs = () => blogsToShow.map((blog) => (
+    <Blog
+      key={blog.id}
+      blog={blog}
+      username={user.username}
+      likeBlog={likeBlog}
+      removeBlog={removeBlog}
+    />
+  ))
+
   const loginForm = () => (
     <LoginForm
       username={username}
@@ -108,15 +156,17 @@ function App() {
   )
 
   const blogForm = () => (
-    <BlogForm
-      newTitle={title}
-      handleTitleChange={handleTitleChange}
-      newAuthor={author}
-      handleAuthorChange={handleAuthorChange}
-      newUrl={url}
-      handleUrlChange={handleUrlChange}
-      addBlog={addBlog}
-    />
+    <Toggagle buttonLabel="new blog">
+      <BlogForm
+        newTitle={title}
+        handleTitleChange={handleTitleChange}
+        newAuthor={author}
+        handleAuthorChange={handleAuthorChange}
+        newUrl={url}
+        handleUrlChange={handleUrlChange}
+        addBlog={addBlog}
+      />
+    </Toggagle>
   )
 
   const loggedIn = () => (

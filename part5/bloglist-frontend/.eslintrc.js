@@ -47,6 +47,7 @@ module.exports = {
         'error', { 'before': true, 'after': true }
     ],
     'no-console': 0,
-    'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }]
+    'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
+    'jsx-a11y/no-static-element-interactions': 0
   }
 }
