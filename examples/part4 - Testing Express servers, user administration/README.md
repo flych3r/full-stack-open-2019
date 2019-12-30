@@ -4,6 +4,8 @@ Initialize git repository: `git init`
 
 Ignore node modules: `echo $'node_modules\n.env' >> .gitignore`
 
+Create the Procfile: `echo $'web: node src/index.js' >> Procfile`
+
 Create heroku application: `heroku create`
 
 Add files to commit: `git add .`

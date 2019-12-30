@@ -1,0 +1,86 @@
+{
+  "notes": [
+    {
+      "content": "custom-hooks are awesome!",
+      "id": 1
+    },
+    {
+      "content": "best feature ever <3",
+      "id": 2
+    },
+    {
+      "content": "adding new note using custom hook",
+      "id": 3
+    },
+    {
+      "content": "adding new note using custom hook",
+      "id": 4
+    },
+    {
+      "content": "",
+      "id": 5
+    },
+    {
+      "content": "",
+      "id": 6
+    },
+    {
+      "content": "",
+      "id": 7
+    },
+    {
+      "content": "",
+      "id": 8
+    },
+    {
+      "content": "",
+      "id": 9
+    },
+    {
+      "content": "adadada",
+      "id": 10
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "hellas",
+      "number": "08-5974-8853",
+      "id": 2
+    },
+    {
+      "name": "",
+      "number": "",
+      "id": 3
+    },
+    {
+      "name": "",
+      "number": "",
+      "id": 4
+    },
+    {
+      "name": "",
+      "number": "",
+      "id": 5
+    },
+    {
+      "name": "",
+      "number": "",
+      "id": 6
+    },
+    {
+      "name": "",
+      "number": "",
+      "id": 7
+    },
+    {
+      "name": "adadadad",
+      "number": "1111111111111",
+      "id": 8
+    }
+  ]
+}

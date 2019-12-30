@@ -24,11 +24,12 @@ const Notification = ({ message, color }) => {
 }
 
 Notification.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
   color: PropTypes.string,
 }
 
 Notification.defaultProps = {
+  message: null,
   color: 'black',
 }
 

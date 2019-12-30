@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { blogType } from '../types'
 
 const Blog = ({
   blog, username, likeBlog, removeBlog,
 }) => {
+  const [visible, setVisible] = useState(true)
+
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -12,24 +15,18 @@ const Blog = ({
     marginBottom: 5,
   }
 
-  const [visible, setVisible] = useState(false)
-
   const removeButton = () => (
     <button type="button" value={JSON.stringify(blog)} onClick={removeBlog}>remove</button>
   )
 
   const allInfo = () => (
-    <div>
+    <div className="all-info" style={{ display: visible ? 'none' : '' }}>
       {blog.url}
       <br />
-      {blog.likes}
-      {' '}
-      likes
+      {`${blog.likes} likes`}
       <button type="button" value={JSON.stringify(blog)} onClick={likeBlog}>like</button>
       <br />
-      added by
-      {' '}
-      {blog.user ? blog.user.name : 'noone'}
+      {`added by ${(blog.user ? blog.user.name : 'noone')}`}
       <br />
       {(blog.user && blog.user.username === username) ? removeButton() : null}
     </div>
@@ -37,19 +34,16 @@ const Blog = ({
 
   return (
     <div style={blogStyle}>
-      <div onClick={() => setVisible(!visible)} onKeyDown={() => setVisible(!visible)}>
-        {blog.title}
-        {' '}
-        by
-        {blog.author}
+      <div className="title-author" onClick={() => setVisible(!visible)} onKeyDown={() => setVisible(!visible)}>
+        {`${blog.title}${(blog.author ? ` by ${blog.author}` : '')}`}
       </div>
-      {visible ? allInfo() : null}
+      {allInfo()}
     </div>
   )
 }
 
 Blog.propTypes = {
-  blog: PropTypes.objectOf(PropTypes.object).isRequired,
+  blog: blogType.isRequired,
   username: PropTypes.string,
   likeBlog: PropTypes.func.isRequired,
   removeBlog: PropTypes.func.isRequired,

@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    'jest/globals': true
   },
   extends: [
     'plugin:react/recommended',
@@ -19,7 +20,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    'react',
+    'react', 'jest', 'react-hooks'
   ],
   'rules': {
     'indent': [
@@ -48,6 +49,8 @@ module.exports = {
     ],
     'no-console': 0,
     'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
-    'jsx-a11y/no-static-element-interactions': 0
+    'jsx-a11y/no-static-element-interactions': 0,
+    'react-hooks/rules-of-hooks': 'error',
+    'react/jsx-props-no-spreading': 0
   }
 }

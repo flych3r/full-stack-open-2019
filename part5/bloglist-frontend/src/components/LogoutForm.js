@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const LogoutForm = ({ handleLogout }) => (
-  <button type="submit" onClick={handleLogout}>logout</button>
+const LogoutForm = ({ onClick }) => (
+  <button type="submit" onClick={onClick}>logout</button>
 )
 
 LogoutForm.propTypes = {
-  handleLogout: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 export default LogoutForm

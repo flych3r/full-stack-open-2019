@@ -1,26 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { formType } from '../types'
 
 const BlogForm = ({
-  newTitle, handleTitleChange,
-  newAuthor, handleAuthorChange,
-  newUrl, handleUrlChange,
-  addBlog,
+  title, author, url, onSubmit,
 }) => (
   <>
     <h2>create new</h2>
-    <form onSubmit={addBlog}>
+    <form onSubmit={onSubmit}>
         title:
       {' '}
-      <input value={newTitle} onChange={handleTitleChange} />
+      <input {...title} reset="" />
       <br />
         author:
       {' '}
-      <input value={newAuthor} onChange={handleAuthorChange} />
+      <input {...author} reset="" />
       <br />
         url:
       {' '}
-      <input value={newUrl} onChange={handleUrlChange} />
+      <input {...url} reset="" />
       <br />
       <button type="submit">create</button>
       <br />
@@ -29,13 +27,10 @@ const BlogForm = ({
 )
 
 BlogForm.propTypes = {
-  newTitle: PropTypes.string.isRequired,
-  handleTitleChange: PropTypes.func.isRequired,
-  newAuthor: PropTypes.string.isRequired,
-  handleAuthorChange: PropTypes.func.isRequired,
-  newUrl: PropTypes.string.isRequired,
-  handleUrlChange: PropTypes.func.isRequired,
-  addBlog: PropTypes.func.isRequired,
+  title: formType.isRequired,
+  author: formType.isRequired,
+  url: formType.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default BlogForm
