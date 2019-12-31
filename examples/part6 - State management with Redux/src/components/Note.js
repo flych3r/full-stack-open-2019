@@ -1,9 +1,9 @@
 import React from 'react'
 
 const Note = ({ note, handleClick }) => {
-  return(
+  return (
     <li onClick={handleClick}>
-      {note.content} 
+      {note.content}
       <strong>{note.important ? 'important' : ''}</strong>
     </li>
   )
