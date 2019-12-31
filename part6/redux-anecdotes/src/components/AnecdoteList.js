@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Anecdote from './Anecdote'
 import { upvoteAnecdote } from '../reducers/anecdoteReducer'
-import { showNotification, hideNotification } from '../reducers/notificationReducer'
 
 const AnecdoteList = (props) => {
  return (
@@ -11,14 +10,16 @@ const AnecdoteList = (props) => {
         <Anecdote 
           key={anecdote.id}
           anecdote={anecdote}
-          handleClick={() => props.vote(anecdote)}
+          handleClick={() => props.upvoteAnecdote(anecdote)}
         />)}
     </div>
   )
 }
 
 const anecdotesToShow = ({anecdotes, filter}) => {
-  return anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filter))
+  return anecdotes.filter(anecdote => 
+    anecdote.content.toLowerCase().includes(filter)
+  ).sort((a, b) => b.votes - a.votes)
 }
 
 const mapStateToProps = (state) => {
@@ -27,19 +28,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    vote: anecdote => {
-      dispatch(upvoteAnecdote(anecdote.id))
-      dispatch(showNotification(`you voted ${anecdote.content}`))
-      setTimeout(() => {
-        dispatch(hideNotification())
-      }, 5000)
-    }
-  }
-}
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { upvoteAnecdote }
 )(AnecdoteList)
