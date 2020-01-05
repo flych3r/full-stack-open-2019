@@ -51,6 +51,9 @@ module.exports = {
     'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
     'jsx-a11y/no-static-element-interactions': 0,
     'react-hooks/rules-of-hooks': 'error',
-    'react/jsx-props-no-spreading': 0
+    'react/jsx-props-no-spreading': 0,
+    'react/destructuring-assignment': 0,
+    'no-case-declarations': 0,
+    'no-param-reassign': [2, { 'props': false }]
   }
 }

@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { userType } from './types'
 import BlogList from './components/BlogList'
 import LoginForm from './components/LoginForm'
 import LogoutForm from './components/LogoutForm'
@@ -10,16 +12,16 @@ import { initializeBlogs } from './reducers/blogReducer'
 import { restoreUser } from './reducers/loginReducer'
 
 function App(props) {
-  const [message, setMessage] = useState(null)
-  const [messageColor, setMessageColor] = useState('')
+  const initializa = props.initializeBlogs
+  const restore = props.restoreUser
 
   useEffect(() => {
-    props.initializeBlogs()
-  }, [])
+    initializa()
+  }, [initializa])
 
   useEffect(() => {
-    props.restoreUser()
-  }, [])
+    restore()
+  }, [restore])
 
   const showBlogs = () => <BlogList />
 
@@ -47,7 +49,7 @@ function App(props) {
 
   return (
     <div>
-      <Notification message={message} color={messageColor} />
+      <Notification />
       {props.user === null ? loginForm() : loggedIn()}
     </div>
   )
@@ -57,7 +59,17 @@ const mapStateToProps = (state) => ({
   user: state.user,
 })
 
+App.propTypes = {
+  initializeBlogs: PropTypes.func.isRequired,
+  restoreUser: PropTypes.func.isRequired,
+  user: userType,
+}
+
+App.defaultProps = {
+  user: null,
+}
+
 export default connect(
   mapStateToProps,
-  { initializeBlogs, restoreUser }
+  { initializeBlogs, restoreUser },
 )(App)

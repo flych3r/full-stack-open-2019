@@ -1,13 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { notificationType } from '../types'
 
-const Notification = ({ message, color }) => {
-  if (message === null) {
+
+const Notification = (props) => {
+  if (!props.notification) {
     return null
   }
 
   const notificationStyle = {
-    color,
+    color: props.notification.color,
     background: 'lightgray',
     fontSize: '20px',
     borderStyle: 'solid',
@@ -18,19 +20,24 @@ const Notification = ({ message, color }) => {
 
   return (
     <div style={notificationStyle}>
-      {message}
+      {props.notification.message}
     </div>
   )
 }
 
+const mapStateToProps = (state) => ({
+  notification: state.notification,
+})
+
 Notification.propTypes = {
-  message: PropTypes.string,
-  color: PropTypes.string,
+  notification: notificationType,
 }
 
 Notification.defaultProps = {
-  message: null,
-  color: 'black',
+  notification: null,
 }
 
-export default Notification
+export default connect(
+  mapStateToProps,
+  null,
+)(Notification)

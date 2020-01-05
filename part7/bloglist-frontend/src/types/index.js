@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import {
-  shape, string, number, func, any,
+  shape, string, number, any,
 } from 'prop-types'
 
 export const blogType = shape({
@@ -15,9 +15,13 @@ export const blogType = shape({
   }),
 })
 
-export const formType = shape({
-  type: string,
-  value: string,
-  onChange: func,
-  reset: func,
+export const notificationType = shape({
+  message: string,
+  color: string,
+})
+
+export const userType = shape({
+  token: string.isRequired,
+  name: string.isRequired,
+  username: string.isRequired,
 })

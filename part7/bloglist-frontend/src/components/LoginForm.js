@@ -1,15 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { formType } from '../types'
 import { loginUser } from '../reducers/loginReducer'
 
 const LoginForm = (props) => {
-  const loginUser = (event) => {
+  const loginToAplication = (event) => {
     event.preventDefault()
     const user = {
       username: event.target.username.value,
-      password: event.target.password.value
+      password: event.target.password.value,
     }
     props.loginUser(user)
     event.target.username.value = ''
@@ -19,7 +18,7 @@ const LoginForm = (props) => {
   return (
     <div>
       <h2>log in to application</h2>
-      <form onSubmit={loginUser}>
+      <form onSubmit={loginToAplication}>
         <div>
             username
           <input name="username" />
@@ -33,13 +32,12 @@ const LoginForm = (props) => {
     </div>
   )
 }
-// LoginForm.propTypes = {
-//   username: formType.isRequired,
-//   password: formType.isRequired,
-//   onSubmit: PropTypes.func.isRequired,
-// }
+
+LoginForm.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+}
 
 export default connect(
   null,
-  { loginUser }
+  { loginUser },
 )(LoginForm)

@@ -7,9 +7,9 @@ const LogoutForm = (props) => (
   <button type="submit" onClick={props.logoutUser}>logout</button>
 )
 
-// LogoutForm.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-// }
+LogoutForm.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+}
 
 export default connect(
   null,

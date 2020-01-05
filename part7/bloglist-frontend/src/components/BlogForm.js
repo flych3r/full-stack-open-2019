@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { formType } from '../types'
 import { createBlog } from '../reducers/blogReducer'
 
 const BlogForm = (props) => {
@@ -41,12 +40,9 @@ const BlogForm = (props) => {
   )
 }
 
-// BlogForm.propTypes = {
-//   title: formType.isRequired,
-//   author: formType.isRequired,
-//   url: formType.isRequired,
-//   onSubmit: PropTypes.func.isRequired,
-// }
+BlogForm.propTypes = {
+  createBlog: PropTypes.func.isRequired,
+}
 
 export default connect(
   null,

@@ -42,15 +42,15 @@ const Blog = ({
   )
 }
 
-// Blog.propTypes = {
-//   blog: blogType.isRequired,
-//   username: PropTypes.string,
-//   likeBlog: PropTypes.func.isRequired,
-//   removeBlog: PropTypes.func.isRequired,
-// }
+Blog.propTypes = {
+  blog: blogType.isRequired,
+  username: PropTypes.string,
+  likeBlog: PropTypes.func.isRequired,
+  removeBlog: PropTypes.func.isRequired,
+}
 
-// Blog.defaultProps = {
-//   username: '',
-// }
+Blog.defaultProps = {
+  username: '',
+}
 
 export default Blog
