@@ -1,12 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
 import { blogType } from '../types/index'
 import Blog from './Blog'
+import BlogForm from './BlogForm'
+import Toggagle from './Toggable'
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
 
 const BlogList = (props) => (
   <div>
+    <Toggagle buttonLabel="new blog">
+      <BlogForm />
+    </Toggagle>
     {props.blogsToShow.map((blog) => (
       <Blog
         key={blog.id}

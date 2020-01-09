@@ -15,12 +15,18 @@ export const blogType = shape({
   }),
 })
 
+export const userType = shape({
+  username: string.isRequired,
+  name: string,
+  blogs: any,
+})
+
 export const notificationType = shape({
   message: string,
   color: string,
 })
 
-export const userType = shape({
+export const loginType = shape({
   token: string.isRequired,
   name: string.isRequired,
   username: string.isRequired,

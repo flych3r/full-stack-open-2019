@@ -1,56 +1,51 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import {
+  BrowserRouter as Router,
+  Route, Link, Redirect, withRouter
+} from 'react-router-dom'
 import { userType } from './types'
 import BlogList from './components/BlogList'
+import UserList from './components/UserList'
 import LoginForm from './components/LoginForm'
 import LogoutForm from './components/LogoutForm'
-import BlogForm from './components/BlogForm'
-import Toggagle from './components/Toggable'
 import Notification from './components/Notification'
 import { initializeBlogs } from './reducers/blogReducer'
+import { initializeUsers } from './reducers/userReducer'
 import { restoreUser } from './reducers/loginReducer'
 
 function App(props) {
-  const initializa = props.initializeBlogs
+  const { initializeBlogs } = props
+  const { initializeUsers } = props
   const restore = props.restoreUser
 
   useEffect(() => {
-    initializa()
-  }, [initializa])
+    initializeBlogs()
+    initializeUsers()
+  }, [initializeBlogs, initializeUsers])
 
   useEffect(() => {
     restore()
   }, [restore])
 
-  const showBlogs = () => <BlogList />
-
-  const loginForm = () => <LoginForm />
-
-  const logoutForm = () => <LogoutForm />
-
-  const blogForm = () => (
-    <Toggagle buttonLabel="new blog">
-      <BlogForm />
-    </Toggagle>
-  )
-
   const loggedIn = () => (
     <div>
-      <h2>blogs</h2>
-      <p>
+      <Router>
+        <Link to="/">blogs</Link>
+        <Link to="/users">users</Link>
         {`${props.user.name} logged in`}
-        {logoutForm()}
-      </p>
-      {blogForm()}
-      {showBlogs()}
+        <LogoutForm />
+        <Route exact path="/" render={() => <BlogList />} />
+        <Route exact path="/users" render={() => <UserList />} />
+      </Router>
     </div>
   )
 
   return (
     <div>
       <Notification />
-      {props.user === null ? loginForm() : loggedIn()}
+      {props.user === null ? <LoginForm /> : loggedIn()}
     </div>
   )
 }
@@ -61,6 +56,7 @@ const mapStateToProps = (state) => ({
 
 App.propTypes = {
   initializeBlogs: PropTypes.func.isRequired,
+  initializeUsers: PropTypes.func.isRequired,
   restoreUser: PropTypes.func.isRequired,
   user: userType,
 }
@@ -71,5 +67,5 @@ App.defaultProps = {
 
 export default connect(
   mapStateToProps,
-  { initializeBlogs, restoreUser },
+  { initializeBlogs, initializeUsers, restoreUser },
 )(App)

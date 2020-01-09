@@ -54,6 +54,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'react/destructuring-assignment': 0,
     'no-case-declarations': 0,
-    'no-param-reassign': [2, { 'props': false }]
+    'no-param-reassign': [2, { 'props': false }],
+    'no-shadow': 0,
   }
 }
